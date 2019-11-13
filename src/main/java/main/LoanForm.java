@@ -20,7 +20,7 @@ public class LoanForm {
     private int requestedAmount;
     private int requestedTerm;
     private String result;
-
+//test
     public String getResult() {
         return result;
     }
