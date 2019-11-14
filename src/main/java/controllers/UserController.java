@@ -26,6 +26,10 @@ public class UserController {
         Optional<User> user = userRepository.findById(id);
         return ResponseEntity.of(user);
     }
+    @GetMapping("user/byprivateid/{privateId}")
+    public ResponseEntity getUserByPrivateId(@PathVariable String privateId){
+        return ResponseEntity.of(userRepository.findByPrivateId(privateId));
+    }
 
     @PostMapping("/users/add")
     public ResponseEntity addUser(@RequestBody User user) {
