@@ -2,10 +2,12 @@ package controllers;
 
 import entities.LoanApplication;
 import entities.User;
+import org.graalvm.compiler.nodes.calc.IntegerDivRemNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import repositories.LoanFormRepository;
 import repositories.UserRepository;
 
 
@@ -16,6 +18,8 @@ import java.util.Optional;
 public class UserController {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private LoanFormRepository formRepository;
 
     @GetMapping("/users")
     public List<User> getUsers() {
@@ -50,8 +54,14 @@ public class UserController {
 
     @PostMapping("users/delete/{id}")
     public ResponseEntity deleteUser(@PathVariable int id) {
-        userRepository.deleteById(id);
-        return ResponseEntity.ok(HttpStatus.OK);
+        Optional<User> res = userRepository.findById(id);
+        if(res.isPresent()){
+            // ??
+            formRepository.deleteByUser(res.get());
+            userRepository.deleteById(id);
+            return ResponseEntity.ok(HttpStatus.OK);
+        }else return new ResponseEntity<>("user with that id does not exist", HttpStatus.NOT_FOUND);
+
     }
 
     @PostMapping("users/deletebypid/{privateId}")
