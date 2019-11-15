@@ -71,7 +71,6 @@ public class FormController {
             validator.calculateResult(form);
             Date now = new Date(System.currentTimeMillis());
             form.setRequestDate(now);
-
             loanRepository.save(form);
             return ResponseEntity.ok(HttpStatus.OK);
         } else return new ResponseEntity<>("user with that id does not exist", HttpStatus.NOT_FOUND);
