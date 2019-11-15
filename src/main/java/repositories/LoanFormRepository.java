@@ -10,7 +10,8 @@ import java.util.List;
 
 @Repository
 public interface LoanFormRepository extends JpaRepository<LoanApplication, Integer> {
-    List<LoanApplication> findAllByUserId(int userId);
+    List<LoanApplication> findAllByUser(User user);
     List<LoanApplication> findAllByRequestDate(Date date);
-    void deleteByUserId(int userId);
+
+    void deleteByUser(User user);
 }

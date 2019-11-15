@@ -1,23 +1,28 @@
 package entities;
 
+
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "loan_applications")
+
 public class LoanApplication {
     @Id
     @GeneratedValue
     private int id;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "userId")
-//    private User user;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "userId")
+    private User user;
 
-    private Integer userId;
     private String employer;
     @NotNull
     private int salary;
@@ -29,11 +34,23 @@ public class LoanApplication {
     private int requestedTerm;
 
     private Date requestDate;
+
     private String result;
 
-    public int getUserId() {
-        return userId;
+
+
+    public User getUser() {
+        return user;
     }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+//
+//    public int getUserId() {
+//        return userId;
+//    }
 
     public Date getRequestDate() {
         return requestDate;
@@ -43,13 +60,12 @@ public class LoanApplication {
         this.requestDate = requestDate;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
+//    public void setUserId(Integer userId) {
+//        this.userId = userId;
+//    }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
+
+
 
     public int getId() {
         return id;
@@ -58,14 +74,8 @@ public class LoanApplication {
     public void setId(int id) {
         this.id = id;
     }
-//
-//    public User getUser() {
-//        return user;
-//    }
-//
-//    public void setUser(User user) {
-//        this.user = user;
-//    }
+
+
 
     public String getEmployer() {
         return employer;

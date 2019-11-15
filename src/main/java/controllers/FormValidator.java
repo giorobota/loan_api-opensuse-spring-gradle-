@@ -25,7 +25,8 @@ public class FormValidator {
         charValues = Helper.getCharMap();
     }
 
-    public void calculateResult(LoanApplication form, User user) {
+    public void calculateResult(LoanApplication form) {
+        User user = form.getUser();
         String fName = user.getfName();
         int nameScore = 0;
         for (int i = 0; i < fName.length(); i++) {

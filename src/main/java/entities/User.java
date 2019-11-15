@@ -1,17 +1,23 @@
 package entities;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
 public class User {
-    @GeneratedValue
+    @GeneratedValue()
     @Id
-    private int id;
+    @Column(name = "userId")
+    private int userId;
     @NotNull
     @Size(max = 40)
     private String fName;
@@ -24,12 +30,25 @@ public class User {
     @Column(unique = true)
     private String privateId;
 
-    public int getId() {
-        return id;
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<LoanApplication> loanApplications;
+
+    public List<LoanApplication> getLoanApplications() {
+        return loanApplications;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setLoanApplications(List<LoanApplication> loanApplications) {
+        this.loanApplications = loanApplications;
+    }
+
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getfName() {
