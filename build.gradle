@@ -32,9 +32,9 @@ dependencies {
 
     compile group: 'org.hibernate', name: 'hibernate-gradle-plugin', version: '5.4.8.Final'
 
-    implementation group: 'org.hibernate', name: 'hibernate-entitymanager', version: '4.1.7.Final'
-//
-    compile 'mysql:mysql-connector-java'
+    compile group: 'org.hibernate', name: 'hibernate-entitymanager', version: '4.1.7.Final'
+
+    implementation 'mysql:mysql-connector-java'
 }
 
 
